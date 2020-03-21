@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     swiper () {
-      return this.$refs.swipeWrapper.$swiper
+      return this.$refs.swipeWrapper && this.$refs.swipeWrapper.$swiper
     }
   },
   mounted () {
