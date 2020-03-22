@@ -46,12 +46,13 @@ export default {
 aside {
   position: absolute;
   top: 93px;
-  left: 30px;
+  left: 0px;
   z-index: 2;
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  text-align: center;
 }
 #svgContent {
+  padding: 10px 0 0 20px;
   margin: 0 auto;
 }
 </style>
