@@ -46,10 +46,10 @@ export default {
 aside {
   position: absolute;
   top: 93px;
-  left: 10px;
+  left: 30px;
   z-index: 2;
-  width: 100%;
-  text-align: center;
+  width: 300px;
+  height: 300px;
 }
 #svgContent {
   margin: 0 auto;
