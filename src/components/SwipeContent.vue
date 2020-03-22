@@ -1,22 +1,17 @@
 <template>
   <section>
-    <animation-content :current-page="currentPage" />
-    <swiper class="swiper" ref="swipeWrapper" :options="swiperOption">
-      <swiper-slide>
-        <h2>CONTENT 01</h2>
-        <svg-content :current-page="0" />
-      </swiper-slide>
-      <swiper-slide>
-        <h2>CONTENT 02</h2>
-        <svg-content :current-page="1" />
-      </swiper-slide>
-      <swiper-slide>
-        <h2>CONTENT 03</h2>
-        <svg-content :current-page="2" />
-      </swiper-slide>
-      <swiper-slide>
-        <h2>CONTENT 04</h2>
-        <svg-content :current-page="3" />
+    <animation-content v-show="isDuringSlide" :current-page="currentPage" />
+    <swiper
+      class="swiper"
+      ref="swipeWrapper"
+      :options="swiperOption"
+      @slideChangeTransitionStart="setSlideFlg(true)"
+      @slideChangeTransitionEnd="setSlideFlg(false)">
+      <swiper-slide v-for="index of 4" :key="index">
+        <h2>CONTENT {{ index }}</h2>
+        <div class="svgArea">
+          <svg-content v-show="!isDuringSlide" :current-page="index - 1" />
+        </div>
       </swiper-slide>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
@@ -37,7 +32,9 @@ export default {
   data () {
     return {
       currentPage: 0,
+      isDuringSlide: false,
       swiperOption: {
+        speed: 500,
         navigation: {
           prevEl: '.swiper-button-prev',
           nextEl: '.swiper-button-next'
@@ -59,6 +56,9 @@ export default {
     })
   },
   methods: {
+    setSlideFlg (slideFlg) {
+      this.isDuringSlide = slideFlg
+    },
     onSlideChange (swiperContext) {
       this.currentPage = swiperContext.swiper.activeIndex
     }
@@ -67,10 +67,16 @@ export default {
 </script>
 
 <style>
+.svgArea {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
 .swiper-slide {
   padding: 20px 20px 60px 20px;
   background: #ffffff;
   box-sizing: border-box;
+  text-align: center;
 }
 .swiper-pagination {
   padding: 10px 0;
